@@ -74,7 +74,6 @@ angular.module('ng-iscroll', []).directive('ngIscroll', function ()
             if(typeof(ngiScroll_opts[i])==="function") {
 
               var event = i.substr(2).replace(/\b(\w)|\s(\w)/g,function(v){return v.toLowerCase();});
-              console.log(event);
               scope.$parent.myScroll[scroll_key].on(event, ngiScroll_opts[i]);
             }
           }
