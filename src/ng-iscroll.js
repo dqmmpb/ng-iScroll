@@ -68,6 +68,18 @@ angular.module('ng-iscroll', []).directive('ngIscroll', function ()
         }
 
         scope.$parent.myScroll[scroll_key] = new IScroll(element[0], ngiScroll_opts);
+        for(var i in ngiScroll_opts) {
+          if(typeof(ngiScroll_opts[i])!=="object") {
+
+            if(typeof(ngiScroll_opts[i])==="function") {
+
+              var event = i.substr(2).replace(/\b(\w)|\s(\w)/g,function(v){return v.toLowerCase();});
+              console.log(event);
+              scope.$parent.myScroll[scroll_key].on(event, ngiScroll_opts[i]);
+            }
+          }
+
+        }
       }
 
       // new specific setting for setting timeout using: ng-iscroll-timeout='{val}'
@@ -92,7 +104,7 @@ angular.module('ng-iscroll', []).directive('ngIscroll', function ()
       // destroy the iscroll instance if we are moving away from a state to another
       // the DOM has changed and he only instance is not necessary any more
       scope.$on('$destroy', function () {
-        scope.$parent.myScroll[scroll_key].destroy();
+        scope.$parent.myScroll[scroll_key].destory();
       });
     }
   };
